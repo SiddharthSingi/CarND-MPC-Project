@@ -57,4 +57,21 @@ For example: If I am decreasing the errors on delta then the car tends to oversh
 So I had to do a lot of trial and error befor finally reaching the above said parameters.
 
 ## Timestep Length and Elapsed Duration (N & dt)
-The values I have used are N = 10, and dt = 0.1. I tried to increase N values but that resulted 
+The values I have used are N = 10, and dt = 0.1. I tried to increase N values but that resulted in more wavery results due to longer time taken for calculation, and also with a higher value for N the car would stay away from the reference line even if there is a turn far away, so it would in a way pre-prepare itself for the upcoming turn.
+
+## Polynomial Fitting and MPC Preprocessing
+As mentioned above all the state values are taken in car coordinate systems. I transformed the obtained ptsx, and ptsy values of the reference line by computing a simple rotation and translation, similar to what I have done in the Particle Filter Project. This is how it was done:
+```
+		  for (unsigned int i = 0; i < ptsx.size(); i++)
+		  {
+			  double shift_x = ptsx[i] - px;
+			  double shift_y = ptsy[i] - py;
+
+			  ptsx[i] = (shift_x*cos(0 - psi) - shift_y*sin(0 - psi));
+			  ptsy[i] = (shift_x*sin(0 - psi) + shift_y*cos(0 - psi));
+		  }
+```
+Here px, py are the positions of the car in map coordinates.
+
+## Model Predictive Control with Latency
+The MPC handles latency by simulating a time difference between sending the time the actuation commands were sent and the time the car implements these commands.
