@@ -24,3 +24,7 @@ These vars are optimized to give the least errors
 ### Constraints
 In order to get realistic actuator values from the optimizer, constraints are put on these variables to mimic a real car as much as possible. The constraints used in this project are those of a global kinematic model. These are the contraints used:
 
+
+
+### Error Function
+If I am decreasing the errors on delta then the car tends to overshoot, however if I am constraining the delta value too much then my car tends to run parallel to the waypoints and takes a long time to come closer to the reference line.
