@@ -76,6 +76,9 @@ Here px, py are the positions of the car in map coordinates.
 ## Model Predictive Control with Latency
 The MPC handles latency by simulating a time difference between sending the time the actuation commands were sent and the time the car implements these commands.
 
+## Video
+Here is a link to the complete video: [Youtube](https://youtu.be/Y-N9K_mmaUE)
+
 
 ## Dependencies
 
