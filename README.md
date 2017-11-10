@@ -57,7 +57,16 @@ For example: If I am decreasing the errors on delta then the car tends to oversh
 So I had to do a lot of trial and error befor finally reaching the above said parameters.
 
 ## Timestep Length and Elapsed Duration (N & dt)
-The values I have used are N = 10, and dt = 0.1. I tried to increase N values but that resulted in more wavery results due to longer time taken for calculation, and also with a higher value for N the car would stay away from the reference line even if there is a turn far away, so it would in a way pre-prepare itself for the upcoming turn.
+The values I have used are N = 20, and dt = 0.05. 
+
+I tried to increase N values but that resulted in more wavery results due to longer time taken for calculation, and also with a higher value for N the car would stay away from the reference line even if there is a turn far away, so it would in a way pre-prepare itself for the upcoming turn.
+
+When I increased my N value further to 30 the heavy computations caused the car to move in unpredictable directions.
+
+I had earlier used values of N = 10, and dt = 0.1. However this did not result in very smooth turns so I decreased the value of dt to 0.05, this helped me achieve finer resolution in my timesteps, and made my turns much smoother.
+
+I maintained the same value of N\*dt (time horizon).
+
 
 ## Polynomial Fitting and MPC Preprocessing
 As mentioned above all the state values are taken in car coordinate systems. I transformed the obtained ptsx, and ptsy values of the reference line by computing a simple rotation and translation, similar to what I have done in the Particle Filter Project. This is how it was done:
@@ -74,7 +83,23 @@ As mentioned above all the state values are taken in car coordinate systems. I t
 Here px, py are the positions of the car in map coordinates.
 
 ## Model Predictive Control with Latency
-The MPC handles latency by simulating a time difference between sending the time the actuation commands were sent and the time the car implements these commands.
+The MPC handles latency by simulating a time difference between sending the time the actuation commands were sent and the time the car implements these commands. To incorporate latency I used a kinematic model to predict the state of the car (in the coordinate system) at the time 100ms in the future when the car will actually execute the actuator commands. To do this I used the following formulae:
+
+```
+		  double latency = 0.1;
+
+		  //These are the state values at the actual time the actuation commands reach.
+		  //That is these are the state values after the latency time is considered
+		  double px_act = v * latency;
+		  double py_act = 0;
+		  double psi_act = -v * steering_angle * latency / Lf;		  
+		  double cte_act = cte + v * sin(epsi) * latency;
+		  double epsi_act = epsi + psi_act;
+		  double v_act = v + throttle * latency;
+```
+
+The throttle and steering values are of the current time.
+
 
 ## Video
 Here is a link to the complete video: [Youtube](https://youtu.be/Y-N9K_mmaUE)
