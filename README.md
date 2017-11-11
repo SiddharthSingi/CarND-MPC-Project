@@ -103,8 +103,8 @@ The throttle and steering values are of the current time.
 
 ## Videos
 Here is a link to the complete videos of the simulator at: 
-* [70mph without latency](https://youtu.be/Y-N9K_mmaUE)
-* [85mph with latency](https://youtu.be/u7_XwdvPNV0)
+* [70mph without latency](https://youtu.be/JaGAH2YesBw)
+* [85mph with latency](https://youtu.be/YwHqBOSBHJo)
 
 
 ## Dependencies
