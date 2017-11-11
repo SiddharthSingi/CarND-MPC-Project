@@ -101,8 +101,10 @@ The MPC handles latency by simulating a time difference between sending the time
 The throttle and steering values are of the current time.
 
 
-## Video
-Here is a link to the complete video: [Youtube](https://youtu.be/Y-N9K_mmaUE)
+## Videos
+Here is a link to the complete videos of the simulator at: 
+* [70mph without latency](https://youtu.be/Y-N9K_mmaUE)
+* [85mph with latency](https://youtu.be/u7_XwdvPNV0)
 
 
 ## Dependencies
